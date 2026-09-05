@@ -1,0 +1,45 @@
+# ── Participant data and HPC staging ──────────────────────────────────────────
+# Per-subject task CSVs contain individual participant data and are never
+# committed.  They are regenerated locally by hgf_pipeline.py.
+data/
+data_n_cmnds/
+
+# Out-of-set normative cohort: trial-level data belongs to a separate study and
+# is not redistributed here.  The column dictionary and all derived summary
+# CSVs/figures ARE tracked.
+out_of_set_data/behavioral_data_OUT_OF_SET_with_metadata.csv
+
+# ── HGF fit results (HPC outputs; large, auto-generated) ──────────────────────
+/results/
+
+# ── Model comparison outputs (auto-generated) ─────────────────────────────────
+model_comparison/bms/results/
+model_comparison/bms/lme_per_subject.csv
+model_comparison/figures/
+
+# bms_summary.csv is TRACKED, unlike the rest of this block: it is a 4-row
+# aggregate (model, alpha, Ef, XP, PXP, BOR, n) with no participant-level data,
+# and 04_visualizations/supplement/hgf_bms_modified.py reads it to render the
+# RFX-BMS supplementary panel.  Without it that figure, and panel c of the
+# 6-panel HGF validation figure, cannot be produced from a fresh clone.
+!model_comparison/bms/bms_summary.csv
+
+# ── Recovery, PPC, and prior-recovery outputs (auto-generated) ────────────────
+param_recovery/results/
+param_recovery/figures/
+param_recovery/commands/
+param_recovery/ppc_classic/results/
+param_recovery/ppc_classic/medians/
+param_recovery/ppc_classic/figures/
+param_recovery/prior_based_mcmc/results/
+param_recovery/prior_based_mcmc/chains/
+param_recovery/prior_based_mcmc/figures/
+param_recovery/prior_based_mcmc/commands/
+
+# ── OS / editor / language caches ─────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
