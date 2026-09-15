@@ -152,6 +152,35 @@ Figures are written to `results/final_figures/` in every format in
 | **Table 1** | `0X_all_figures.py` | `table_1.docx` |
 | **Figure S6** | `0X_all_figures.py` | Routed to `results/supplement/`, not `final_figures/` |
 
+### Figure 2
+
+Drawn by `plot_ppa_history_distributions()` over the PPA+ subsample
+(`df_spusers[persist_vis_yn == 1]`, N = 131).
+
+**The panel letters do not follow the grid order.** `panel_iter = iter("acebdf")`
+assigns them column-major, so the reader goes down each column before moving
+right. The mapping from the code's `gs[row, col]` to the published letter:
+
+| Grid cell | Letter | Content | Source |
+|---|---|---|---|
+| `gs[0,0]` | **a** | SP doses before first PPA onset | `persistvis_psychdoses` |
+| `gs[0,1]` | **c** | Total duration of PPA experience | `hppd_true_chronicity` |
+| `gs[0,2]` | **e** | PPA symptom prevalence | the 11 raw item columns |
+| `gs[1,0]` | **b** | # PPA symptoms endorsed | `baggot_total` |
+| `gs[1,1]` | **d** | PPA timing pattern | `persistvis_duration` |
+| `gs[1,2]` | **f** | Most vivid/intense PPA | `persistvis_most` |
+
+**The qualifying symptom set is 11 items.** `_baggot_cols_ppa` (panel e) is the
+authoritative list for this figure and matches `baggot_total` in panel b;
+`_most_map_ppa` (panel f) offers the same 11 phenomena. Change one and you must
+change the other, or the two panels stop describing the same symptom set.
+
+**Panels e and f have different denominators.** Panel e counts multi-select items
+against the fixed N = 131. Panel f's `persistvis_most` is single-choice and
+`_pbarplot` takes `total` from the mapped codes only, so its percentages are over
+the 114 participants who chose one of the codes shown. Adding or removing a code
+in `_most_map_ppa` moves every percentage in that panel.
+
 ### Figure 3
 
 `caps_item_distributions_hppd_split.py` draws a 2×2 panel over the six binary
@@ -235,3 +264,10 @@ Figure labels and palettes come from `modules/master_config.py` —
    label changes. Expect this when diffing a regenerated figure against a
    previously submitted one, and re-export **all** downstream copies of a figure
    together so the PNG, SVG, PDF and TIFF of one figure agree with each other.
+
+7. **`baggot_total` equals the sum of the 11 Baggot item columns**, on every row
+   of the shipped CSV. It is a cheap invariant to assert if you are modifying
+   anything that touches the symptom items. Take `baggot_total` from the column
+   rather than rebuilding it: the identity is a check on the data, not a recipe
+   for regenerating it, and a mismatch means something upstream needs looking at
+   rather than overwriting.

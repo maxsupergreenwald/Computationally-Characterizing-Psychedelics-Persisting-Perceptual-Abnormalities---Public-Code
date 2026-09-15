@@ -1229,10 +1229,14 @@ if RUN_TABLES:
     # ── PPA History Distributions Figure ─────────────────────────────────────
     _ppa_color = '#6ab0c5'
 
+    # The 11 qualifying PPA items, in panel order.  This list is the same symptom
+    # set that `baggot_total` counts, so panel C (prevalence per item) and panel D
+    # (count per participant) describe the same thing.  Keep it in step with
+    # `_most_map_ppa` below.
     _baggot_cols_ppa = [
         "grids", "moving", "different", "oscillating", "halos",
         "still", "trails", "colors", "objects",
-        "pattern_open", "pattern_closed", "attention",
+        "pattern_open", "pattern_closed",
     ]
     _baggott_map = {
         "halos": "Halos or auras",
@@ -1263,8 +1267,13 @@ if RUN_TABLES:
         2: "Longer periods\n(hrs–days)",
         3: "Constant/\nnear-constant",
     }
-    # Reordered to match _baggot_cols_ppa order so panels C and F share aligned xticks.
-    # Key 13 ("never experienced") removed — always 0 observations.
+    # Reordered to match _baggot_cols_ppa order so panels C and F share aligned
+    # xticks, and covering the same 11 phenomena.  Key 13 ("never experienced") is
+    # omitted — always 0 observations.
+    # NOTE: persistvis_most is single-choice and _pbarplot takes its denominator
+    # from the keys present here, so this panel's percentages are over the 114
+    # participants who chose one of the codes below.  Adding or removing a key
+    # moves every percentage in the panel.
     _most_map_ppa = {
         10: "Distorted/moving lines/grids",
         2:  "Stationary objects appear to move",
@@ -1277,7 +1286,6 @@ if RUN_TABLES:
         8:  "Objects that aren't really there",
         6:  "Patterns w/eyes open",
         7:  "Patterns w/eyes closed",
-        11: "Noticing more things in environment",
     }
     
     def plot_ppa_history_distributions(df_ppa, save_path):

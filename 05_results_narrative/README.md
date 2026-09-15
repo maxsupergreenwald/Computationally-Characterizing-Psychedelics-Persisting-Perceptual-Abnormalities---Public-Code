@@ -273,6 +273,18 @@ does, the exclusion belongs upstream in the data export, not here.
 All reported statistics come from `df` or `df_sp`; `df_recruit` is used only for
 the recruitment counts.
 
+### `baggot_total` is an 11-item count
+
+`ppa_history_results` reports two figures off `baggot_total` —
+`baggot_total_mode_num_PCT` and `baggot_total_ABOVE_4_num_PCT`, both computed over
+`df_hppd` (N = 131), currently **2 (16.8%)** and **69 (52.7%)**.
+
+`baggot_total` counts the 11 qualifying Baggot items and equals their sum on every
+row of the shipped CSV. `attention` ("noticing more things in the environment") is
+not one of them — it remains available as its own column and feeds the `subtle`
+group, but does not enter the symptom total. See pitfall 7 in
+`04_visualizations/README.md`.
+
 ### Recruitment counts
 
 Two sets of counts coexist and they mean different things.
